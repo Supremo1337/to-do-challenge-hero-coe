@@ -20,11 +20,11 @@ export default function TaskBan() {
               onClick={() => handleButtonClick(index)}
             >
               <S.IconTask
-                isActive={activeButtonIndex === index}
-                gray={`${button.nameIcon}Gray`}
-                purple={`${button.nameIcon}Purple`}
+                $isActive={activeButtonIndex === index}
+                $gray={`${button.nameIcon}Gray`}
+                $purple={`${button.nameIcon}Purple`}
               />
-              <GS.CategoryLabel isActive={activeButtonIndex === index}>
+              <GS.CategoryLabel $isActive={activeButtonIndex === index}>
                 {button.label}
               </GS.CategoryLabel>
             </S.TaskViewSelector>

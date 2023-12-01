@@ -3,9 +3,9 @@ import { theme } from "@/styles/themes";
 import styled from "styled-components";
 
 interface IconTaskProps {
-  isActive: boolean;
-  purple: string;
-  gray: string;
+  $isActive: boolean;
+  $purple: string;
+  $gray: string;
 }
 
 export const Content = styled.nav`
@@ -43,7 +43,7 @@ export const IconTask = styled.div<IconTaskProps>`
   height: 25px;
   /* background: purple; */
   background-image: ${(props) =>
-    `url("icon/${props.isActive ? props.purple : props.gray}.svg")`};
+    `url("icon/${props.$isActive ? props.$purple : props.$gray}.svg")`};
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

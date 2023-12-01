@@ -3,7 +3,7 @@ import { theme } from "./themes";
 import styled from "styled-components";
 
 interface CategoryLabelProps {
-  isActive: boolean;
+  $isActive: boolean;
 }
 
 export const GlobalStyles = createGlobalStyle`
@@ -32,11 +32,11 @@ export const GlobalStyles = createGlobalStyle`
 
 export const CategoryLabel = styled.div<CategoryLabelProps>`
   font: ${(props) =>
-    props.isActive
+    props.$isActive
       ? theme.fonts.libre_Franklin.title_3
       : theme.fonts.libre_Franklin.title_8};
   color: ${(props) =>
-    props.isActive
+    props.$isActive
       ? theme.colors.purple.purple_900
       : theme.colors.gray.gray_700};
 `;
