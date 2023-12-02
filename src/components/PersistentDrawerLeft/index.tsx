@@ -1,54 +1,39 @@
-import { useTheme } from "@mui/material/styles";
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 import List from "@mui/material/List";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ListItem from "@mui/material/ListItem";
 import * as S from "./styles";
 import { theme } from "@/styles/themes";
-import { TaskViewSelector, Title } from "../Taskban/styles";
+import TaskBan from "../Taskban";
+import { useOpenMaterial } from "../contexts/openMaterialContext";
 
 const drawerSize = "100%";
 
-interface PersistentDrawerLeftProps {
-  changeStyle?: boolean;
-}
-
-export default function PersistentDrawerLeft(props: PersistentDrawerLeftProps) {
-  // const theme = useTheme();
-  const [openDrawer, setOpenDrawer] = useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpenDrawer(true);
-  };
+export default function PersistentDrawerLeft() {
+  const { openDrawer, setOpenDrawer } = useOpenMaterial();
 
   const handleDrawerClose = () => {
     setOpenDrawer(false);
   };
 
   return (
-    <S.Content style={{ width: "44px" }}>
-      <S.FadeInContainer>
-        <TaskViewSelector onClick={handleDrawerOpen} />
-      </S.FadeInContainer>
+    <S.Content style={{ width: "0px" }}>
       <S.FadeInContainer>
         <S.StyledDrawer
           sx={{
-            width: drawerSize,
+            width: "auto",
             flexShrink: 0,
             "& .MuiDrawer-paper": {
-              width: drawerSize,
+              width: "auto",
               height: drawerSize,
               boxSizing: "border-box",
               backgroundColor: "rgba(0,0,0,0.45)",
-              paddingTop: "50px",
-              paddingRight: "10px",
+              paddingTop: "13.5px",
             },
           }}
           open={openDrawer}
-          anchor="right"
+          anchor="left"
           onClose={handleDrawerClose}
           variant="temporary"
         >
@@ -62,7 +47,6 @@ export default function PersistentDrawerLeft(props: PersistentDrawerLeftProps) {
                   color: theme.colors.white.white_300,
                   fontSize: "28px",
                 }}
-                // fontSize="large"
               />
             </IconButton>
             <List
@@ -71,23 +55,7 @@ export default function PersistentDrawerLeft(props: PersistentDrawerLeftProps) {
               <ListItem disablePadding>
                 <S.ListItemRow>
                   <S.SlideInContainer>
-                    <S.BoxButtonAction $display="flex">
-                      <AddCircleOutlineIcon
-                        style={{
-                          color: theme.colors.white.white_300,
-                          fontSize: "32px",
-                          opacity: "59%",
-                        }}
-                      />
-                      <Title>Adicionar um jogo</Title>
-                    </S.BoxButtonAction>
-                  </S.SlideInContainer>
-                </S.ListItemRow>
-              </ListItem>
-              <ListItem disablePadding>
-                <S.ListItemRow>
-                  <S.SlideInContainer>
-                    <S.BoxButtonAction $display="flex" />
+                    <TaskBan $isTransparent={true} />
                   </S.SlideInContainer>
                 </S.ListItemRow>
               </ListItem>

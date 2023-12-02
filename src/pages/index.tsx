@@ -1,9 +1,41 @@
 import Head from "next/head";
 import TaskBan from "@/components/Taskban";
 import Header from "@/components/Header";
+import { useState, useEffect } from "react";
 import PersistentDrawerLeft from "@/components/PersistentDrawerLeft";
+import styled from "styled-components";
+import Main from "@/components/Main";
+import ModalCreateCard from "@/components/ModalCreateCard";
+
+const useWindowWide = () => {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [setWidth]);
+
+  return width;
+};
+
+export const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
 
 export default function Home() {
+  const wide = useWindowWide();
+
   return (
     <>
       <Head>
@@ -12,9 +44,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <PersistentDrawerLeft /> */}
-      <TaskBan />
-      {/* <Header /> */}
+      {wide < 768 ? (
+        <PersistentDrawerLeft />
+      ) : (
+        <TaskBan $isTransparent={false} />
+      )}
+      <Wrapper>
+        <Header sizeScreen={wide} />
+        <Main />
+      </Wrapper>
     </>
   );
 }

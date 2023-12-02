@@ -3,12 +3,16 @@ import { theme } from "@/styles/themes";
 import styled from "styled-components";
 
 interface IconTaskProps {
-  $isActive: boolean;
-  $purple: string;
-  $gray: string;
+  $isActive?: boolean;
+  $purple?: string;
+  $gray?: string;
 }
 
-export const Content = styled.nav`
+interface ContentProps {
+  $isTransparent: boolean;
+}
+
+export const Content = styled.div<ContentProps>`
   width: 300px;
   /* height: 100vh; */
   /* flex-grow: 1; */
@@ -18,8 +22,10 @@ export const Content = styled.nav`
 
   padding: 56px 60px;
 
-  background: #fff;
-  box-shadow: 4px 0px 30px 10px rgba(0, 0, 0, 0.05);
+  background: ${(props) =>
+    props.$isTransparent ? "transparent" : theme.colors.white.white_100};
+  box-shadow: ${(props) =>
+    props.$isTransparent ? "none" : "4px 0px 30px 10px rgba(0, 0, 0, 0.05)"};
 `;
 
 export const Title = styled.h1`

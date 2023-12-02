@@ -11,6 +11,8 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    color: ${theme.colors.gray.gray_700};
+    user-select: none;
   }
   
   #__next{

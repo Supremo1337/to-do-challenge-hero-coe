@@ -3,14 +3,18 @@ import * as S from "./styles";
 import { useState } from "react";
 import { buttons } from "./buttons";
 
-export default function TaskBan() {
+interface TaskBanProps {
+  $isTransparent: boolean;
+}
+
+export default function TaskBan({ $isTransparent }: TaskBanProps) {
   const [activeButtonIndex, setActiveButtonIndex] = useState(0);
 
   const handleButtonClick = (index: number) => {
     setActiveButtonIndex(index);
   };
   return (
-    <S.Content>
+    <S.Content $isTransparent={$isTransparent}>
       <S.Title>TaskBan</S.Title>
       <S.GroupIcons>
         {buttons.map((button, index) => {
