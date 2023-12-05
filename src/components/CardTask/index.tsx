@@ -1,5 +1,7 @@
 import { useState } from "react";
 import * as S from "./styles";
+import { useDateContext } from "../contexts/dateContext";
+import { useDrag } from "react-dnd";
 
 interface CardTaskProps {
   card: {
@@ -7,19 +9,34 @@ interface CardTaskProps {
     description: string;
     date: string;
     priority: string;
-    // Adicione outros campos do card conforme necessário
   };
 }
 
 export default function CardTask({ card }: CardTaskProps) {
+  const { formattedTodayDateToMaterialFormat } = useDateContext();
+  let taskDateIsLate = formattedTodayDateToMaterialFormat > card.date;
+  let formatedDateToUTC = new Date(card.date).toLocaleDateString("pt-BR", {
+    timeZone: "UTC",
+  });
+
+  const [{ isDragging }, dragRef] = useDrag({
+    type: "CARD",
+    item: card.title,
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
   return (
-    <S.Content>
+    <S.Content ref={dragRef} $isDragging={isDragging}>
       <S.CardTitle>{card.title}</S.CardTitle>
       <S.CardDescription>{card.description}</S.CardDescription>
       <S.BottomCard>
         <S.TaskTime>
-          <S.TimeIcon $icon="bx_timeRed" />
-          <S.TimeTitle>{card.date}</S.TimeTitle>
+          <S.TimeIcon $isLate={taskDateIsLate} />
+          <S.TimeTitle $isLate={taskDateIsLate}>
+            {formatedDateToUTC}
+          </S.TimeTitle>
         </S.TaskTime>
         {card.priority === "HIGH" ? (
           <S.PriorityIndicatator $priority="HIGH">HIGH</S.PriorityIndicatator>

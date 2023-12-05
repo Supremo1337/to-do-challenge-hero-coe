@@ -7,7 +7,6 @@ type InputComponentProps = {
   label: string;
   placeholder?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  defaultValue?: string;
   value: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
@@ -16,7 +15,6 @@ export default function InputComponent({
   label = "",
   placeholder = "",
   onChange,
-  defaultValue = "",
   value = "",
 }: InputComponentProps) {
   return (
@@ -27,7 +25,6 @@ export default function InputComponent({
       label={label}
       placeholder={placeholder}
       onChange={onChange}
-      defaultValue={defaultValue}
       value={value}
       required
       sx={{

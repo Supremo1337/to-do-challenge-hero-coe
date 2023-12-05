@@ -9,6 +9,8 @@ import * as GS from "@/styles/globalStyles";
 import { PriorityIndicatator } from "../CardTask/styles";
 import { priorityButtons } from "./priorityButtos";
 import InputComponent from "../InputComponent";
+import { format } from "date-fns";
+import { useDateContext } from "../contexts/dateContext";
 
 interface ModalCreateCardProps {
   addCard: (newCard: {
@@ -23,15 +25,13 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
   const { setOpenModalCreateCard, openModalCreateCard } = useOpenMaterial();
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
-  const [taskDate, setTaskDate] = useState("2023-12-01");
   const [priority, setPriority] = useState("");
   const [placeholder, setPlaceholder] = useState(false);
-
   const handleCloseModalCreateCard = () => setOpenModalCreateCard(false);
+  const { taskDate, setTaskDate, formattedTodayDateToMaterialFormat } =
+    useDateContext();
 
   const handleCreateCard = () => {
-    // Feche o modal
-
     const newCard = {
       title: taskTitle,
       description: taskDescription,
@@ -41,6 +41,9 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
     addCard(newCard);
     handleCloseModalCreateCard();
     setTaskTitle("");
+    setTaskDescription("");
+    setTaskDate(formattedTodayDateToMaterialFormat);
+    setPlaceholder(false);
   };
 
   const handleTextFieldDate = (e: ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +51,6 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
     setTaskDate(e.target.value);
   };
 
-  console.log("priority:", priority);
   return (
     <div>
       <Modal
@@ -77,7 +79,6 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
             )}
             <InputComponent
               type="date"
-              defaultValue="2023-12-01"
               label="Data Final"
               onChange={handleTextFieldDate}
               value={taskDate}

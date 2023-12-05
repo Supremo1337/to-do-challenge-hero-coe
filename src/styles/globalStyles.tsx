@@ -13,6 +13,7 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     color: ${theme.colors.gray.gray_700};
     user-select: none;
+    opacity: 1;
   }
   
   #__next{

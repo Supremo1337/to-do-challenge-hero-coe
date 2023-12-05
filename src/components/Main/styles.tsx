@@ -3,10 +3,11 @@ import { theme } from "@/styles/themes";
 import styled from "styled-components";
 
 export const Content = styled.div`
+  height: calc(100vh - 90px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
 
   padding: 60px 0;
 

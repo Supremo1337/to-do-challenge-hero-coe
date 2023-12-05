@@ -1,10 +1,16 @@
 import { FlexBox } from "@/styles/globalStyles";
 import { theme } from "@/styles/themes";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { IconTask } from "../Taskban/styles";
+import { useDateContext } from "../contexts/dateContext";
+import { ReactNode } from "react";
 
-interface TimeIconProps {
-  $icon: string;
+interface TimeProps {
+  $isLate: boolean;
+}
+
+interface ContentProps {
+  $isDragging: any;
 }
 
 interface PriorityIndicatatorProps {
@@ -12,7 +18,8 @@ interface PriorityIndicatatorProps {
   $priority: string;
 }
 
-export const Content = styled(FlexBox)`
+export const Content = styled(FlexBox)<ContentProps>`
+  position: relative;
   width: 300px;
   height: 155px;
 
@@ -20,10 +27,26 @@ export const Content = styled(FlexBox)`
   align-self: center;
 
   border-radius: 10px;
-  background: ${theme.colors.white.white_100};
   box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
 
   padding: 20px;
+  cursor: grab;
+
+  ${(props) =>
+    props.$isDragging &&
+    css`
+      border: 2px dashed rgba(0, 0, 0, 0.2);
+      padding-top: 31px;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      cursor: grabbing;
+
+      div,
+      h2 {
+        opacity: 0;
+      }
+    `}
 `;
 
 export const CardTitle = styled.h2`
@@ -47,16 +70,18 @@ export const TaskTime = styled.div`
   gap: 10px;
 `;
 
-export const TimeIcon = styled(IconTask)<TimeIconProps>`
+export const TimeIcon = styled(IconTask)<TimeProps>`
   width: 24px;
   height: 24px;
   /* background: purple; */
-  background-image: ${(props) => `url("icon/${props.$icon}.svg")`};
+  background-image: ${(props) =>
+    `url("icon/${props.$isLate ? "bx_timeRed" : "bx_TimeGray"}.svg")`};
 `;
 
-export const TimeTitle = styled.label`
+export const TimeTitle = styled.label<TimeProps>`
   font: ${theme.fonts.libre_Franklin.title_4};
-  color: ${theme.colors.red};
+  color: ${(props) =>
+    props.$isLate ? theme.colors.red : theme.colors.gray.gray_700};
 `;
 
 export const PriorityIndicatator = styled.div<PriorityIndicatatorProps>`
