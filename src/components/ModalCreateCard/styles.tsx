@@ -7,6 +7,9 @@ import * as GS from "@/styles/globalStyles";
 interface CancelAndSubmitButtonProps {
   $isCancel: boolean;
 }
+interface GroupPriorytisButtonsAndCancelAndSubmitButtonProps {
+  $isDesktop?: boolean;
+}
 
 export const ModalBox = styled(Box)`
   width: 340px;
@@ -24,6 +27,10 @@ export const ModalBox = styled(Box)`
   background: ${theme.colors.white.white_100};
   box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
   padding: 20px;
+  @media (min-width: 974px) {
+    width: 682px;
+    height: 463px;
+  }
 `;
 
 export const FormAddCard = styled.form`
@@ -31,6 +38,9 @@ export const FormAddCard = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media (min-width: 974px) {
+    align-items: flex-end;
+  }
 `;
 
 export const NewCardTitle = styled(Title)`
@@ -42,17 +52,27 @@ export const PriorityBox = styled(GS.FlexBox)`
   gap: 9px;
 `;
 
-export const GroupPriorytisButtons = styled.div`
+export const GroupPriorytisButtonsAndCancelAndSubmitButton = styled.div<GroupPriorytisButtonsAndCancelAndSubmitButtonProps>`
   display: flex;
   gap: 15px;
+  @media (min-width: 974px) {
+    width: ${(props) => (props.$isDesktop ? "50%" : "")};
+  }
 `;
 
 export const PriorityLabel = styled.label`
   font: ${theme.fonts.libre_Franklin.title_9};
 `;
 
-export const CancelAndSubmitButton = styled.input<CancelAndSubmitButtonProps>`
+export const DesktopGroupDateInputAndPrioritys = styled.div`
   width: 100%;
+  display: flex;
+  /* background-color: red; */
+  justify-content: space-between;
+`;
+
+export const CancelAndSubmitButton = styled.input<CancelAndSubmitButtonProps>`
+  width: 50%;
   height: 37px;
   border-radius: 20px;
 

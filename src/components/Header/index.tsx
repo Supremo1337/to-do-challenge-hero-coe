@@ -1,13 +1,12 @@
 import { FadeInContainer } from "../PersistentDrawerLeft/styles";
 import { useOpenMaterial } from "../contexts/openMaterialContext";
+import { useScreenSize } from "../contexts/screenSizeContext";
 import { Content, CreateNewCardButton } from "./styles";
 import MenuIcon from "@mui/icons-material/Menu";
 
-interface HeaderProps {
-  sizeScreen: number;
-}
+export default function Header() {
+  const { sizeScreen } = useScreenSize();
 
-export default function Header({ sizeScreen }: HeaderProps) {
   const { setOpenDrawer, setOpenModalCreateCard } = useOpenMaterial();
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
@@ -16,11 +15,11 @@ export default function Header({ sizeScreen }: HeaderProps) {
 
   return (
     <Content>
-      <FadeInContainer>
-        {sizeScreen < 768 && (
+      {sizeScreen < 768 && (
+        <FadeInContainer>
           <MenuIcon fontSize={"large"} onClick={handleDrawerOpen} />
-        )}
-      </FadeInContainer>
+        </FadeInContainer>
+      )}
       <CreateNewCardButton onClick={handleOpenModalCreateCard}>
         + Novo Card
       </CreateNewCardButton>

@@ -6,35 +6,21 @@ import PersistentDrawerLeft from "@/components/PersistentDrawerLeft";
 import styled from "styled-components";
 import Main from "@/components/Main";
 import ModalCreateCard from "@/components/ModalCreateCard";
-
-const useWindowWide = () => {
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    function handleResize() {
-      setWidth(window.innerWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [setWidth]);
-
-  return width;
-};
+import { useScreenSize } from "@/components/contexts/screenSizeContext";
 
 export const Wrapper = styled.div`
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: red;
+  @media (min-width: 768px) {
+    width: calc(100vw - 300px);
+  }
 `;
 
 export default function Home() {
-  const wide = useWindowWide();
+  const { sizeScreen } = useScreenSize();
 
   return (
     <>
@@ -44,13 +30,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {wide < 768 ? (
+      {sizeScreen < 768 ? (
         <PersistentDrawerLeft />
       ) : (
         <TaskBan $isTransparent={false} />
       )}
       <Wrapper>
-        <Header sizeScreen={wide} />
+        <Header />
         <Main />
       </Wrapper>
     </>

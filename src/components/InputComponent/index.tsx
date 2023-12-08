@@ -30,6 +30,7 @@ export default function InputComponent({
       sx={{
         "&.MuiFormControl-root": {
           width: "100%",
+          height: "48px",
         },
         "& label.Mui-focused": {
           color: theme.colors.gray.gray_700,

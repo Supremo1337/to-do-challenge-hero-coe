@@ -11,6 +11,7 @@ import { priorityButtons } from "./priorityButtos";
 import InputComponent from "../InputComponent";
 import { format } from "date-fns";
 import { useDateContext } from "../contexts/dateContext";
+import { useScreenSize } from "../contexts/screenSizeContext";
 
 interface ModalCreateCardProps {
   addCard: (newCard: {
@@ -23,6 +24,7 @@ interface ModalCreateCardProps {
 }
 
 export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
+  const { sizeScreen } = useScreenSize();
   const { setOpenModalCreateCard, openModalCreateCard } = useOpenMaterial();
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
@@ -83,48 +85,101 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
               value={taskDescription}
               placeholder="Digite a descrição"
             />
-            <div style={{ position: "relative" }}>
-              {!placeholder && (
-                <S.Placeholder>Selecione a data de entrega</S.Placeholder>
-              )}
-              <InputComponent
-                type="date"
-                label="Data Final"
-                onChange={handleTextFieldDate}
-                value={taskDate}
-              />
-            </div>
-            <S.PriorityBox>
-              <S.PriorityLabel>Prioryty</S.PriorityLabel>
-              <S.GroupPriorytisButtons>
-                {priorityButtons.map((button) => {
-                  return (
-                    <PriorityIndicatator
-                      key={button.priority}
-                      $priority={button.priority}
-                      onClick={() => setPriority(button.priority)}
-                    >
-                      {button.priority}
-                    </PriorityIndicatator>
-                  );
-                })}
-              </S.GroupPriorytisButtons>
-              <S.GroupPriorytisButtons>
-                <S.CancelAndSubmitButton
-                  onClick={handleCloseModalCreateCard}
-                  $isCancel={true}
-                  value={"CANCELAR"}
-                  readOnly={true}
-                  type="button"
-                />
+            {sizeScreen < 974 ? (
+              <>
+                <div style={{ position: "relative" }}>
+                  {!placeholder && (
+                    <S.Placeholder>Selecione a data de entrega</S.Placeholder>
+                  )}
+                  <InputComponent
+                    type="date"
+                    label="Data Final"
+                    onChange={handleTextFieldDate}
+                    value={taskDate}
+                  />
+                </div>
+                <S.PriorityBox>
+                  <S.PriorityLabel>Prioryty</S.PriorityLabel>
+                  <S.GroupPriorytisButtonsAndCancelAndSubmitButton>
+                    {priorityButtons.map((button) => {
+                      return (
+                        <PriorityIndicatator
+                          key={button.priority}
+                          $priority={button.priority}
+                          onClick={() => setPriority(button.priority)}
+                        >
+                          {button.priority}
+                        </PriorityIndicatator>
+                      );
+                    })}
+                  </S.GroupPriorytisButtonsAndCancelAndSubmitButton>
+                  <S.GroupPriorytisButtonsAndCancelAndSubmitButton>
+                    <S.CancelAndSubmitButton
+                      onClick={handleCloseModalCreateCard}
+                      $isCancel={true}
+                      value={"CANCELAR"}
+                      readOnly={true}
+                      type="button"
+                    />
 
-                <S.CancelAndSubmitButton
-                  $isCancel={false}
-                  value={"CRIAR"}
-                  type="submit"
-                />
-              </S.GroupPriorytisButtons>
-            </S.PriorityBox>
+                    <S.CancelAndSubmitButton
+                      $isCancel={false}
+                      value={"CRIAR"}
+                      type="submit"
+                    />
+                  </S.GroupPriorytisButtonsAndCancelAndSubmitButton>
+                </S.PriorityBox>
+              </>
+            ) : (
+              <>
+                <S.DesktopGroupDateInputAndPrioritys>
+                  <div style={{ position: "relative", width: "280px" }}>
+                    {!placeholder && (
+                      <S.Placeholder>Selecione a data de entrega</S.Placeholder>
+                    )}
+                    <InputComponent
+                      type="date"
+                      label="Data Final"
+                      onChange={handleTextFieldDate}
+                      value={taskDate}
+                    />
+                  </div>
+                  <S.PriorityBox>
+                    <S.PriorityLabel>Prioryty</S.PriorityLabel>
+                    <S.GroupPriorytisButtonsAndCancelAndSubmitButton>
+                      {priorityButtons.map((button) => {
+                        return (
+                          <PriorityIndicatator
+                            key={button.priority}
+                            $priority={button.priority}
+                            onClick={() => setPriority(button.priority)}
+                          >
+                            {button.priority}
+                          </PriorityIndicatator>
+                        );
+                      })}
+                    </S.GroupPriorytisButtonsAndCancelAndSubmitButton>
+                  </S.PriorityBox>
+                </S.DesktopGroupDateInputAndPrioritys>
+                <S.GroupPriorytisButtonsAndCancelAndSubmitButton
+                  $isDesktop={true}
+                >
+                  <S.CancelAndSubmitButton
+                    onClick={handleCloseModalCreateCard}
+                    $isCancel={true}
+                    value={"CANCELAR"}
+                    readOnly={true}
+                    type="button"
+                  />
+
+                  <S.CancelAndSubmitButton
+                    $isCancel={false}
+                    value={"CRIAR"}
+                    type="submit"
+                  />
+                </S.GroupPriorytisButtonsAndCancelAndSubmitButton>
+              </>
+            )}
           </S.FormAddCard>
         </S.ModalBox>
       </Modal>

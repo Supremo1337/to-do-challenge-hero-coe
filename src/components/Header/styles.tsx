@@ -9,6 +9,9 @@ export const Content = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
+  @media (min-width: 768px) {
+    justify-content: flex-end;
+  }
   @media (min-width: 1024px) {
     padding: 0 90px;
   }
