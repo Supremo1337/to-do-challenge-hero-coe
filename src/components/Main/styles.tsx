@@ -4,19 +4,21 @@ import styled from "styled-components";
 
 export const Content = styled.div`
   height: calc(100vh - 90px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* justify-content: center; */
 
-  padding: 60px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  padding: 60px 39px;
 
   background: ${theme.colors.white.white_200};
   gap: 39px;
+  overflow-y: auto;
 `;
 
 export const TaskList = styled(FlexBox)`
   width: 330px;
+  /* height: 300px; */
 
   background: ${theme.colors.white.white_300};
 

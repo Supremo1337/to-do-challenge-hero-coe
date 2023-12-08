@@ -2,11 +2,10 @@ import { FlexBox } from "@/styles/globalStyles";
 import { theme } from "@/styles/themes";
 import styled, { css } from "styled-components";
 import { IconTask } from "../Taskban/styles";
-import { useDateContext } from "../contexts/dateContext";
-import { ReactNode } from "react";
 
 interface TimeProps {
-  $isLate: boolean;
+  $isLate?: boolean;
+  $isFinished?: "OK";
 }
 
 interface ContentProps {
@@ -14,12 +13,11 @@ interface ContentProps {
 }
 
 interface PriorityIndicatatorProps {
-  // $priority: "HIGH" | "MEDIUM" | "LOW";
-  $priority: string;
+  $priority: "HIGH" | "MEDIUM" | "LOW";
+  // $priority: string;
 }
 
 export const Content = styled(FlexBox)<ContentProps>`
-  position: relative;
   width: 300px;
   height: 155px;
 
@@ -75,13 +73,25 @@ export const TimeIcon = styled(IconTask)<TimeProps>`
   height: 24px;
   /* background: purple; */
   background-image: ${(props) =>
-    `url("icon/${props.$isLate ? "bx_timeRed" : "bx_TimeGray"}.svg")`};
+    `url("icon/${
+      props.$isFinished === "OK"
+        ? "circle-check"
+        : props.$isLate
+        ? "bx_timeRed"
+        : "bx_TimeGray"
+    }.svg")`};
 `;
 
 export const TimeTitle = styled.label<TimeProps>`
   font: ${theme.fonts.libre_Franklin.title_4};
   color: ${(props) =>
     props.$isLate ? theme.colors.red : theme.colors.gray.gray_700};
+  color: ${(props) =>
+    props.$isFinished === "OK"
+      ? theme.colors.green
+      : props.$isLate
+      ? theme.colors.red
+      : theme.colors.gray.gray_700};
 `;
 
 export const PriorityIndicatator = styled.div<PriorityIndicatatorProps>`

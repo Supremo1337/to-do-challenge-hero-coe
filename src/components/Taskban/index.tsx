@@ -20,7 +20,7 @@ export default function TaskBan({ $isTransparent }: TaskBanProps) {
         {buttons.map((button, index) => {
           return (
             <S.TaskViewSelector
-              key={index}
+              key={button.label}
               onClick={() => handleButtonClick(index)}
             >
               <S.IconTask

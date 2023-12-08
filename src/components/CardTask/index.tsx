@@ -5,27 +5,33 @@ import { useDrag } from "react-dnd";
 
 interface CardTaskProps {
   card: {
+    id: string;
     title: string;
     description: string;
     date: string;
     priority: string;
   };
+  doneList?: any[];
 }
 
-export default function CardTask({ card }: CardTaskProps) {
+export default function CardTask({ card, doneList }: CardTaskProps) {
   const { formattedTodayDateToMaterialFormat } = useDateContext();
   let taskDateIsLate = formattedTodayDateToMaterialFormat > card.date;
   let formatedDateToUTC = new Date(card.date).toLocaleDateString("pt-BR", {
     timeZone: "UTC",
   });
 
-  const [{ isDragging }, dragRef] = useDrag({
+  const [{ isDragging }, dragRef] = useDrag(() => ({
     type: "CARD",
-    item: card.title,
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
+    item: { id: card.id },
+    collect: (monitor) => {
+      return {
+        isDragging: monitor.isDragging(),
+      };
+    },
+  }));
+
+  // console.log(isDragging);
 
   return (
     <S.Content ref={dragRef} $isDragging={isDragging}>
@@ -33,10 +39,19 @@ export default function CardTask({ card }: CardTaskProps) {
       <S.CardDescription>{card.description}</S.CardDescription>
       <S.BottomCard>
         <S.TaskTime>
-          <S.TimeIcon $isLate={taskDateIsLate} />
-          <S.TimeTitle $isLate={taskDateIsLate}>
-            {formatedDateToUTC}
-          </S.TimeTitle>
+          {doneList ? (
+            <>
+              <S.TimeIcon $isFinished="OK" />
+              <S.TimeTitle $isFinished="OK">Finalizado</S.TimeTitle>
+            </>
+          ) : (
+            <>
+              <S.TimeIcon $isLate={taskDateIsLate} />
+              <S.TimeTitle $isLate={taskDateIsLate}>
+                {formatedDateToUTC}
+              </S.TimeTitle>
+            </>
+          )}
         </S.TaskTime>
         {card.priority === "HIGH" ? (
           <S.PriorityIndicatator $priority="HIGH">HIGH</S.PriorityIndicatator>
