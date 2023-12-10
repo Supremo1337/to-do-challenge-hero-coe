@@ -12,8 +12,11 @@ interface TasksContextData {
 
 export interface TasksProps {
   id: number;
-  name: string;
+  title: string;
+  description: string;
+  priority: string;
   status: string;
+  date: string;
 }
 
 const TasksContext = createContext({} as TasksContextData);

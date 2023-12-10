@@ -3,6 +3,7 @@ import { TextField } from "@mui/material";
 import { ChangeEvent, ChangeEventHandler, InputHTMLAttributes } from "react";
 
 type InputComponentProps = {
+  name: string;
   type?: string;
   label: string;
   placeholder?: string;
@@ -15,6 +16,7 @@ type InputComponentProps = {
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export default function InputComponent({
+  name,
   type = "text",
   label = "",
   placeholder = "",
@@ -27,6 +29,7 @@ export default function InputComponent({
 }: InputComponentProps) {
   return (
     <TextField
+      name={name}
       id="outlined-basic"
       variant="outlined"
       type={type}

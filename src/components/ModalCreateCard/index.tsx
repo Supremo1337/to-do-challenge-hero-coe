@@ -1,8 +1,5 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useOpenMaterialContext } from "../contexts/openMaterialContext";
 import * as S from "./styles";
 import * as GS from "@/styles/globalStyles";
@@ -12,55 +9,58 @@ import InputComponent from "../InputComponent";
 import { format } from "date-fns";
 import { useDateContext } from "../contexts/dateContext";
 import { useScreenSizeContext } from "../contexts/screenSizeContext";
+import { TasksProps, useTasksContext } from "../contexts/tasksContext";
 
-interface ModalCreateCardProps {
-  addCard: (newCard: {
-    id: number;
-    title: string;
-    description: string;
-    date: string;
-    priority: "HIGH" | "MEDIUM" | "LOW";
-  }) => void;
-}
-
-export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
+export default function ModalCreateCard() {
   const { sizeScreen } = useScreenSizeContext();
   const { setOpenModalCreateCard, openModalCreateCard } =
     useOpenMaterialContext();
-  const [taskTitle, setTaskTitle] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
-  const [priority, setPriority] = useState<"HIGH" | "MEDIUM" | "LOW">("HIGH");
+  const { formattedTodayDateToMaterialFormat } = useDateContext();
+  const { setTasks } = useTasksContext();
+
+  const [task, setTask] = useState<TasksProps>({
+    id: Date.now(),
+    title: "",
+    description: "",
+    priority: "HIGH",
+    status: "todo",
+    date: formattedTodayDateToMaterialFormat,
+  });
   const [placeholder, setPlaceholder] = useState(false);
+
   const handleCloseModalCreateCard = () => setOpenModalCreateCard(false);
-  const { taskDate, setTaskDate, formattedTodayDateToMaterialFormat } =
-    useDateContext();
 
-  const handleCreateCard = () => {
-    const newCard = {
-      id: Date.now(),
-      title: taskTitle,
-      description: taskDescription,
-      date: taskDate,
-      priority: priority,
-    };
-    console.log("newcardMODAL", newCard);
-    addCard(newCard);
-    handleCloseModalCreateCard();
-    setTaskTitle("");
-    setTaskDescription("");
-    setTaskDate(formattedTodayDateToMaterialFormat);
-    setPlaceholder(false);
-    console.log("Criando card:", newCard);
-  };
-
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleCreateCard();
+
+    setTasks((prev) => {
+      const list = [...prev, task];
+      return list;
+    });
+
+    setTask({
+      id: Date.now(),
+      title: "",
+      description: "",
+      status: "todo",
+      priority: "HIGH",
+      date: formattedTodayDateToMaterialFormat,
+    });
+
+    handleCloseModalCreateCard();
   };
 
-  const handleTextFieldDate = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setTask((prevTask) => ({
+      ...prevTask,
+      [name]: value,
+    }));
+  };
+
+  const handleTextFieldDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlaceholder(Boolean(e.target.value));
-    setTaskDate(e.target.value);
+    setTask((prevTask) => ({ ...prevTask, date: e.target.value }));
   };
 
   return (
@@ -73,21 +73,23 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
       >
         <S.ModalBox>
           <S.NewCardTitle>Novo Card</S.NewCardTitle>
-          <S.FormAddCard onSubmit={handleFormSubmit}>
+          <S.FormAddCard onSubmit={handleSubmit}>
             <InputComponent
               label="Título da Task"
               placeholder="Digite aqui o título da task"
-              onChange={(e) => setTaskTitle(e.target.value)}
-              value={taskTitle}
+              onChange={handleChange}
+              value={task.title}
+              name="title"
             />
             <InputComponent
               label="Descrição"
-              onChange={(e) => setTaskDescription(e.target.value)}
-              value={taskDescription}
+              onChange={handleChange}
+              value={task.description}
               placeholder="Digite a descrição"
               height={77}
               multiline={true}
               rows={2}
+              name="description"
             />
             {sizeScreen < 974 ? (
               <>
@@ -99,7 +101,8 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
                     type="date"
                     label="Data Final"
                     onChange={handleTextFieldDate}
-                    value={taskDate}
+                    value={task.date}
+                    name="date"
                   />
                 </div>
                 <S.PriorityBox>
@@ -110,14 +113,19 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
                         <PriorityIndicatator
                           key={button.priority}
                           $priority={button.priority}
-                          onClick={() => setPriority(button.priority)}
+                          onClick={() =>
+                            setTask((prevTask) => ({
+                              ...prevTask,
+                              priority: button.priority,
+                            }))
+                          }
                         >
                           {button.priority}
                         </PriorityIndicatator>
                       );
                     })}
                   </S.GroupPriorytisButtonsAndCancelAndSubmitButton>
-                  <S.GroupPriorytisButtonsAndCancelAndSubmitButton>
+                  <S.GroupPriorytisButtonsAndCancelAndSubmitButton $mgTop="22.5px">
                     <S.CancelAndSubmitButton
                       onClick={handleCloseModalCreateCard}
                       $isCancel={true}
@@ -145,7 +153,8 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
                       type="date"
                       label="Data Final"
                       onChange={handleTextFieldDate}
-                      value={taskDate}
+                      value={task.date}
+                      name="date"
                     />
                   </div>
                   <S.PriorityBox>
@@ -156,7 +165,12 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
                           <PriorityIndicatator
                             key={button.priority}
                             $priority={button.priority}
-                            onClick={() => setPriority(button.priority)}
+                            onClick={() =>
+                              setTask((prevTask) => ({
+                                ...prevTask,
+                                priority: button.priority,
+                              }))
+                            }
                           >
                             {button.priority}
                           </PriorityIndicatator>
@@ -167,6 +181,7 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
                 </S.DesktopGroupDateInputAndPrioritys>
                 <S.GroupPriorytisButtonsAndCancelAndSubmitButton
                   $isDesktop={true}
+                  $mgTopDestkop="34.5px"
                 >
                   <S.CancelAndSubmitButton
                     onClick={handleCloseModalCreateCard}

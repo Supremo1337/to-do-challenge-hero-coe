@@ -9,7 +9,7 @@ interface TimeProps {
 }
 
 interface ContentProps {
-  $isDragging: any;
+  $isDragging: boolean;
 }
 
 interface PriorityIndicatatorProps {

@@ -9,11 +9,13 @@ interface CancelAndSubmitButtonProps {
 }
 interface GroupPriorytisButtonsAndCancelAndSubmitButtonProps {
   $isDesktop?: boolean;
+  $mgTop?: string;
+  $mgTopDestkop?: string;
 }
 
 export const ModalBox = styled(Box)`
   width: 340px;
-  height: 400px;
+  height: auto;
   border-radius: 10px;
   position: absolute;
   top: 50%;
@@ -22,28 +24,29 @@ export const ModalBox = styled(Box)`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 34px;
 
   background: ${theme.colors.white.white_100};
   box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
-  padding: 20px;
+  padding: 40px 20px;
   @media (min-width: 974px) {
     width: 682px;
     height: 463px;
 
     padding: 42px;
-    justify-content: normal;
-    gap: 34px;
   }
 `;
 
 export const FormAddCard = styled.form`
   height: calc(100% - 48px);
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 22px;
   @media (min-width: 974px) {
     align-items: flex-end;
+    justify-content: normal;
+    gap: 22px;
   }
 `;
 
@@ -59,8 +62,13 @@ export const PriorityBox = styled(GS.FlexBox)`
 export const GroupPriorytisButtonsAndCancelAndSubmitButton = styled.div<GroupPriorytisButtonsAndCancelAndSubmitButtonProps>`
   display: flex;
   gap: 15px;
+
+  margin-top: ${(props) => props.$mgTop};
   @media (min-width: 974px) {
-    width: ${(props) => (props.$isDesktop ? "50%" : "")};
+    width: ${(props) => (props.$isDesktop ? "100%" : "")};
+
+    justify-content: flex-end;
+    margin-top: ${(props) => props.$mgTopDestkop};
   }
 `;
 
@@ -97,6 +105,9 @@ export const CancelAndSubmitButton = styled.input<CancelAndSubmitButtonProps>`
 
   text-align: center;
   outline: none;
+  @media (min-width: 974px) {
+    width: 180px;
+  }
 `;
 
 export const Placeholder = styled.label`

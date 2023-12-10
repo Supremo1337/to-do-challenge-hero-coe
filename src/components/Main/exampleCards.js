@@ -1,9 +1,10 @@
-export const toDoListExamples = [
+export const todoListExamples = [
   {
     id: 1,
     title: "Testar Navegadores",
     description:
       "Verificar e garantir a compatibilidade da aplicação em diferentes navegadores.",
+    status: "todo",
     date: "2023-11-25",
     priority: "HIGH",
   },
@@ -12,6 +13,7 @@ export const toDoListExamples = [
     title: "Atualizar Bibliotecas",
     description:
       "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos",
+    status: "todo",
     date: "2023-12-25",
     priority: "LOW",
   },
@@ -20,6 +22,7 @@ export const toDoListExamples = [
     title: "Implementar Animações",
     description:
       "Adicionar efeitos visuais e transiçõespara melhorar a experiência do usuário.",
+    status: "todo",
     date: "2023-12-25",
     priority: "MEDIUM",
   },
@@ -31,6 +34,7 @@ export const toDoingListExamples = [
     title: "Atualizar Bibliotecas",
     description:
       "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos",
+    status: "toDoing",
     date: "2023-12-25",
     priority: "LOW",
   },

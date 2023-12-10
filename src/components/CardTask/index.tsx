@@ -1,45 +1,62 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as S from "./styles";
 import { useDateContext } from "../contexts/dateContext";
 import { useDrag } from "react-dnd";
+import { TasksProps } from "../contexts/tasksContext";
+import {
+  Button,
+  ClickAwayListener,
+  Fade,
+  Grow,
+  Menu,
+  MenuItem,
+  MenuList,
+  Paper,
+  Popper,
+  Stack,
+} from "@mui/material";
+import { useScreenSizeContext } from "../contexts/screenSizeContext";
 
 interface CardTaskProps {
-  card: {
-    id: string;
-    title: string;
-    description: string;
-    date: string;
-    priority: string;
-  };
-  doneList?: any[];
+  card: TasksProps;
+  doneList?: TasksProps[];
 }
 
 export default function CardTask({ card, doneList }: CardTaskProps) {
+  const { sizeScreen } = useScreenSizeContext();
   const { formattedTodayDateToMaterialFormat } = useDateContext();
   let taskDateIsLate = formattedTodayDateToMaterialFormat > card.date;
   let formatedDateToUTC = new Date(card.date).toLocaleDateString("pt-BR", {
     timeZone: "UTC",
   });
 
-  const [{ isDragging }, dragRef] = useDrag(() => ({
-    type: "CARD",
-    item: { id: card.id },
-    collect: (monitor) => {
-      return {
-        isDragging: monitor.isDragging(),
-      };
-    },
-  }));
+  let isDoneList = doneList && doneList.some((item) => item.id === card.id);
 
-  // console.log(isDragging);
+  const [{ isDragging }, dragRef] = useDrag(
+    () => ({
+      type: "task",
+      item: { id: card.id },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    }),
+    []
+  );
 
   return (
-    <S.Content ref={dragRef} $isDragging={isDragging}>
+    <S.Content
+      ref={dragRef}
+      // ref={anchorRef}
+      $isDragging={isDragging}
+      // aria-haspopup="true"
+      // onClick={handleToggle}
+      // onTouchEnd={handleContextMenuClose}
+    >
       <S.CardTitle>{card.title}</S.CardTitle>
       <S.CardDescription>{card.description}</S.CardDescription>
       <S.BottomCard>
         <S.TaskTime>
-          {doneList ? (
+          {isDoneList ? (
             <>
               <S.TimeIcon $isFinished="OK" />
               <S.TimeTitle $isFinished="OK">Finalizado</S.TimeTitle>
@@ -53,7 +70,7 @@ export default function CardTask({ card, doneList }: CardTaskProps) {
             </>
           )}
         </S.TaskTime>
-        {!doneList && (
+        {!isDoneList && (
           <>
             {card.priority === "HIGH" ? (
               <S.PriorityIndicatator $priority="HIGH">
