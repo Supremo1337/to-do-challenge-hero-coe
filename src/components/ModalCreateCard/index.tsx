@@ -32,6 +32,15 @@ export default function ModalCreateCard() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (task.title.length > 28) {
+      alert("O titulo escrito ultrapassa 28 caracteres");
+      return;
+    }
+    if (task.description.length > 78) {
+      alert("A descrição escrita ultrapassa 78 caracteres");
+      return;
+    }
+
     setTasks((prev) => {
       const list = [...prev, task];
       return list;

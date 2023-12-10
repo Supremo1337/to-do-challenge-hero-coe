@@ -20,6 +20,7 @@ export const TaskList = styled(FlexBox)`
 
 export const TaskCategoryTitle = styled.h3`
   font: ${theme.fonts.libre_Franklin.title_1};
+
   span {
     font: ${theme.fonts.libre_Franklin.title_8};
   }

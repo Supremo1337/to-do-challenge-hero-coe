@@ -49,7 +49,7 @@ export default function CardTask({
         ref={dragRef}
         $isDragging={isDragging}
       >
-        <S.CardTitle>{card.title}</S.CardTitle>
+        <S.CardTitle title={card.title}>{card.title}</S.CardTitle>
         <S.CardDescription>{card.description}</S.CardDescription>
         <S.BottomCard>
           <S.TaskTime>

@@ -16,6 +16,10 @@ interface PriorityIndicatatorProps {
   $priority: "HIGH" | "MEDIUM" | "LOW";
 }
 
+interface TaskCategoryTitleProps {
+  maxChars?: number;
+}
+
 export const Content = styled(FlexBox)<ContentProps>`
   width: 300px;
   height: 155px;
@@ -46,14 +50,22 @@ export const Content = styled(FlexBox)<ContentProps>`
     `}
 `;
 
-export const CardTitle = styled.h2`
+export const CardTitle = styled.h2<TaskCategoryTitleProps>`
   font: ${theme.fonts.libre_Franklin.title_3};
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  /* width: 19ch; */
 `;
 
 export const CardDescription = styled(CardTitle)`
   margin: 15px 0 21px 0;
 
   font: ${theme.fonts.libre_Franklin.title_7};
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: horizontal;
+  white-space: normal;
 `;
 
 export const BottomCard = styled.div`
