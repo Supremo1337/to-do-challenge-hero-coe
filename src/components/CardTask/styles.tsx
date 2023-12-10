@@ -14,7 +14,6 @@ interface ContentProps {
 
 interface PriorityIndicatatorProps {
   $priority: "HIGH" | "MEDIUM" | "LOW";
-  // $priority: string;
 }
 
 export const Content = styled(FlexBox)<ContentProps>`
@@ -71,7 +70,6 @@ export const TaskTime = styled.div`
 export const TimeIcon = styled(IconTask)<TimeProps>`
   width: 24px;
   height: 24px;
-  /* background: purple; */
   background-image: ${(props) =>
     `url("icon/${
       props.$isFinished === "OK"

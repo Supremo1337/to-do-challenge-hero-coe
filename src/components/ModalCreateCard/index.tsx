@@ -2,14 +2,13 @@ import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { useOpenMaterialContext } from "../contexts/openMaterialContext";
 import * as S from "./styles";
-import * as GS from "@/styles/globalStyles";
 import { PriorityIndicatator } from "../CardTask/styles";
 import { priorityButtons } from "./priorityButtos";
 import InputComponent from "../InputComponent";
-import { format } from "date-fns";
 import { useDateContext } from "../contexts/dateContext";
 import { useScreenSizeContext } from "../contexts/screenSizeContext";
-import { TasksProps, useTasksContext } from "../contexts/tasksContext";
+import { useTasksContext } from "../contexts/tasksContext";
+import { TasksProps } from "@/interfaces/interface";
 
 export default function ModalCreateCard() {
   const { sizeScreen } = useScreenSizeContext();
@@ -71,7 +70,7 @@ export default function ModalCreateCard() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <S.ModalBox>
+        <S.ModalBoxCreateCard>
           <S.NewCardTitle>Novo Card</S.NewCardTitle>
           <S.FormAddCard onSubmit={handleSubmit}>
             <InputComponent
@@ -200,7 +199,7 @@ export default function ModalCreateCard() {
               </>
             )}
           </S.FormAddCard>
-        </S.ModalBox>
+        </S.ModalBoxCreateCard>
       </Modal>
     </div>
   );

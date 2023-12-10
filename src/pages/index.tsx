@@ -1,13 +1,10 @@
 import Head from "next/head";
 import TaskBan from "@/components/Taskban";
 import Header from "@/components/Header";
-import { useState, useEffect } from "react";
 import PersistentDrawerLeft from "@/components/PersistentDrawerLeft";
 import styled from "styled-components";
 import Main from "@/components/Main";
-import ModalCreateCard from "@/components/ModalCreateCard";
 import { useScreenSizeContext } from "@/components/contexts/screenSizeContext";
-import { useTasksContext } from "@/components/contexts/tasksContext";
 
 export const Wrapper = styled.div`
   width: 100vw;

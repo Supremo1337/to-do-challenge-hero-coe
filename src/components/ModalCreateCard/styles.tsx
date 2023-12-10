@@ -13,7 +13,7 @@ interface GroupPriorytisButtonsAndCancelAndSubmitButtonProps {
   $mgTopDestkop?: string;
 }
 
-export const ModalBox = styled(Box)`
+export const ModalBoxCreateCard = styled(Box)`
   width: 340px;
   height: auto;
   border-radius: 10px;

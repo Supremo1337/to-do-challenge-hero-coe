@@ -14,8 +14,6 @@ interface ContentProps {
 
 export const Content = styled.div<ContentProps>`
   width: 300px;
-  /* height: 100vh; */
-  /* flex-grow: 1; */
 
   display: flex;
   flex-direction: column;
@@ -47,7 +45,6 @@ export const GroupIcons = styled(GS.FlexBox)`
 export const IconTask = styled.div<IconTaskProps>`
   width: 25px;
   height: 25px;
-  /* background: purple; */
   background-image: ${(props) =>
     `url("icon/${props.$isActive ? props.$purple : props.$gray}.svg")`};
   background-size: cover;

@@ -37,7 +37,7 @@ export const slideIn = keyframes`
 
 export const StyledDrawer = styled(Drawer)`
   .MuiDrawer-paper {
-    background-color: #fff; /* Remove a cor de fundo */
+    background-color: ${theme.colors.white.white_100};
     opacity: ${({ open }) => (open ? 1 : 0)};
     animation: ${fadeIn} 300ms ease-in-out;
     box-shadow: 4px 0px 30px 10px rgba(0, 0, 0, 0.05);
@@ -54,10 +54,8 @@ export const DrawerBody = styled.div`
 
 export const FadeInContainer = styled.div`
   animation: ${fadeIn} 300ms ease-in-out;
-  /* background-color: red; */
 `;
 
 export const SlideInContainer = styled.div`
   animation: ${slideIn} 900ms ease-in-out;
-  /* background-color: red; */
 `;

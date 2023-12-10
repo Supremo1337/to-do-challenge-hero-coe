@@ -1,3 +1,4 @@
+import { TasksProps } from "@/interfaces/interface";
 import React, {
   PropsWithChildren,
   createContext,
@@ -8,15 +9,6 @@ import React, {
 interface TasksContextData {
   tasks: TasksProps[];
   setTasks: React.Dispatch<React.SetStateAction<TasksProps[]>>;
-}
-
-export interface TasksProps {
-  id: number;
-  title: string;
-  description: string;
-  priority: string;
-  status: string;
-  date: string;
 }
 
 const TasksContext = createContext({} as TasksContextData);

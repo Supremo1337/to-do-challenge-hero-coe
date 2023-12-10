@@ -1,15 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { DropTargetMonitor, useDrop } from "react-dnd";
-import CardTask from "../CardTask";
 import ModalCreateCard from "../ModalCreateCard";
 import * as S from "./styles";
-import {
-  todoListExamples,
-  toDoingListExamples,
-  qAListExamples,
-  doneListExamples,
-} from "./exampleCards";
-import { TasksProps, useTasksContext } from "../contexts/tasksContext";
+import { useTasksContext } from "../contexts/tasksContext";
+import { TasksProps } from "@/interfaces/interface";
 import Section from "../Section";
 
 type TaskStatus = "todo" | "toDoing" | "qA" | "done";

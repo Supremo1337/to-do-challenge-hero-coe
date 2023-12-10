@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { DropTargetMonitor, useDrop } from "react-dnd";
-
-import { TasksProps, useTasksContext } from "../contexts/tasksContext";
+import { useDrop } from "react-dnd";
+import { useTasksContext } from "../contexts/tasksContext";
 import * as S from "./styles";
 import CardTask from "../CardTask";
+import { useScreenSizeContext } from "../contexts/screenSizeContext";
+import { TasksProps } from "@/interfaces/interface";
 
 type TaskStatus = "todo" | "toDoing" | "qA" | "done";
 
@@ -22,11 +22,14 @@ export default function Section({
   qAList,
   doneList,
 }: SectionProps) {
+  const { sizeScreen } = useScreenSizeContext();
   const { setTasks } = useTasksContext();
   const [{ isOver }, dropRef] = useDrop(
     () => ({
       accept: "task",
-      drop: (item: { id: number }) => addItemToSection(item.id),
+      drop: (item: { id: number }) => {
+        addItemToSection(item.id);
+      },
       collect: (monitor) => ({
         isOver: monitor.isOver(),
       }),
@@ -34,11 +37,24 @@ export default function Section({
     []
   );
 
-  const addItemToSection = (id: number) => {
+  const addItemToSection = (id: number, buttonName?: string) => {
+    console.log("close");
     setTasks((prev) => {
       const mTasks = prev.map((card) => {
         if (card.id === id) {
-          return { ...card, status: status };
+          return {
+            ...card,
+            status:
+              sizeScreen < 1024
+                ? buttonName === "todo"
+                  ? "todo"
+                  : buttonName === "toDoing"
+                  ? "toDoing"
+                  : buttonName === "qA"
+                  ? "qA"
+                  : "done"
+                : status,
+          };
         }
         return card;
       });
@@ -64,16 +80,19 @@ export default function Section({
   }
 
   return (
-    <>
-      <S.TaskList ref={dropRef}>
-        <S.TaskCategoryTitle>
-          {text} <span>({cardsToMap.length})</span>
-        </S.TaskCategoryTitle>
-        {cardsToMap.length > 0 &&
-          cardsToMap.map((card) => (
-            <CardTask key={card.id} card={card} doneList={doneList} />
-          ))}
-      </S.TaskList>
-    </>
+    <S.TaskList ref={dropRef}>
+      <S.TaskCategoryTitle>
+        {text} <span>({cardsToMap.length})</span>
+      </S.TaskCategoryTitle>
+      {cardsToMap.length > 0 &&
+        cardsToMap.map((card) => (
+          <CardTask
+            key={card.id}
+            card={card}
+            doneList={doneList}
+            addItemToSection={addItemToSection}
+          />
+        ))}
+    </S.TaskList>
   );
 }
