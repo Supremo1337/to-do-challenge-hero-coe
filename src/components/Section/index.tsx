@@ -52,7 +52,9 @@ export default function Section({
                   ? "toDoing"
                   : buttonName === "qA"
                   ? "qA"
-                  : "done"
+                  : buttonName === "done"
+                  ? "done"
+                  : status
                 : status,
           };
         }
