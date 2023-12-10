@@ -11,9 +11,12 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    color: ${theme.colors.gray.gray_700};
     user-select: none;
     opacity: 1;
+  }
+
+  div {
+    color: ${theme.colors.gray.gray_700};
   }
   
   #__next{

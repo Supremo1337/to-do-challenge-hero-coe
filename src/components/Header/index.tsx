@@ -1,3 +1,4 @@
+import { theme } from "@/styles/themes";
 import { FadeInContainer } from "../PersistentDrawerLeft/styles";
 import { useOpenMaterialContext } from "../contexts/openMaterialContext";
 import { useScreenSizeContext } from "../contexts/screenSizeContext";
@@ -17,7 +18,11 @@ export default function Header() {
     <Content>
       {sizeScreen < 768 && (
         <FadeInContainer>
-          <MenuIcon fontSize={"large"} onClick={handleDrawerOpen} />
+          <MenuIcon
+            sx={{ color: theme.colors.white.white_300 }}
+            fontSize={"large"}
+            onClick={handleDrawerOpen}
+          />
         </FadeInContainer>
       )}
       <CreateNewCardButton onClick={handleOpenModalCreateCard}>

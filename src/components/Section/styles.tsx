@@ -9,7 +9,7 @@ export const TaskList = styled(FlexBox)`
   background: ${theme.colors.white.white_300};
   border-radius: 20px;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
-  padding: 8px;
+  padding: 14px;
   min-width: 330px;
   gap: 20px;
 
