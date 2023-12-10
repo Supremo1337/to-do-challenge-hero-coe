@@ -30,6 +30,10 @@ export const ModalBox = styled(Box)`
   @media (min-width: 974px) {
     width: 682px;
     height: 463px;
+
+    padding: 42px;
+    justify-content: normal;
+    gap: 34px;
   }
 `;
 
@@ -67,8 +71,8 @@ export const PriorityLabel = styled.label`
 export const DesktopGroupDateInputAndPrioritys = styled.div`
   width: 100%;
   display: flex;
-  /* background-color: red; */
   justify-content: space-between;
+  align-items: flex-end;
 `;
 
 export const CancelAndSubmitButton = styled.input<CancelAndSubmitButtonProps>`
@@ -107,7 +111,7 @@ export const Placeholder = styled.label`
   pointer-events: none;
   transition: 0.2s ease all;
   left: 3px;
-  transform: translateY(30%) scale(1);
+  transform: translateY(5%) scale(1);
   z-index: 1;
 
   color: ${theme.colors.gray.gray_300};

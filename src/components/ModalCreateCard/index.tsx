@@ -84,6 +84,9 @@ export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
               onChange={(e) => setTaskDescription(e.target.value)}
               value={taskDescription}
               placeholder="Digite a descrição"
+              height={77}
+              multiline={true}
+              rows={2}
             />
             {sizeScreen < 974 ? (
               <>

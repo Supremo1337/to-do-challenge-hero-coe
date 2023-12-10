@@ -8,6 +8,10 @@ type InputComponentProps = {
   placeholder?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string;
+  top?: number;
+  height?: number;
+  multiline?: boolean;
+  rows?: number;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export default function InputComponent({
@@ -16,6 +20,10 @@ export default function InputComponent({
   placeholder = "",
   onChange,
   value = "",
+  top = -8,
+  height = 40,
+  multiline = false,
+  rows = 1,
 }: InputComponentProps) {
   return (
     <TextField
@@ -26,11 +34,13 @@ export default function InputComponent({
       placeholder={placeholder}
       onChange={onChange}
       value={value}
+      multiline={multiline}
+      rows={rows}
       required
       sx={{
+        ".MuiFormLabel-root[data-shrink=false]": { top: top },
         "&.MuiFormControl-root": {
           width: "100%",
-          height: "48px",
         },
         "& label.Mui-focused": {
           color: theme.colors.gray.gray_700,
@@ -44,6 +54,7 @@ export default function InputComponent({
           },
         },
         "& .MuiOutlinedInput-root": {
+          height: height,
           "& fieldset": {
             borderColor: theme.colors.gray.gray_300,
           },

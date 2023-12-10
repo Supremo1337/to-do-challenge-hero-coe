@@ -53,14 +53,20 @@ export default function CardTask({ card, doneList }: CardTaskProps) {
             </>
           )}
         </S.TaskTime>
-        {card.priority === "HIGH" ? (
-          <S.PriorityIndicatator $priority="HIGH">HIGH</S.PriorityIndicatator>
-        ) : card.priority === "MEDIUM" ? (
-          <S.PriorityIndicatator $priority="MEDIUM">
-            MEDIUM
-          </S.PriorityIndicatator>
-        ) : (
-          <S.PriorityIndicatator $priority="LOW">LOW</S.PriorityIndicatator>
+        {!doneList && (
+          <>
+            {card.priority === "HIGH" ? (
+              <S.PriorityIndicatator $priority="HIGH">
+                HIGH
+              </S.PriorityIndicatator>
+            ) : card.priority === "MEDIUM" ? (
+              <S.PriorityIndicatator $priority="MEDIUM">
+                MEDIUM
+              </S.PriorityIndicatator>
+            ) : (
+              <S.PriorityIndicatator $priority="LOW">LOW</S.PriorityIndicatator>
+            )}
+          </>
         )}
       </S.BottomCard>
     </S.Content>
