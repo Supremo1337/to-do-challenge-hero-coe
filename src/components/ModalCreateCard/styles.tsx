@@ -29,6 +29,11 @@ export const ModalBoxCreateCard = styled(Box)`
   background: ${theme.colors.white.white_100};
   box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
   padding: 40px 20px;
+  @media (min-width: 507px) {
+    width: 390px;
+
+    padding: 40px 30px;
+  }
   @media (min-width: 974px) {
     width: 682px;
     height: 463px;
