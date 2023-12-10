@@ -6,13 +6,13 @@ import React, {
   useEffect,
 } from "react";
 
-interface ScreenSizeData {
+interface ScreenSizeContextData {
   sizeScreen: number;
 }
 
-const ScreenSize = createContext({} as ScreenSizeData);
+const ScreenSizeContext = createContext({} as ScreenSizeContextData);
 
-export const ScreenSizeProvider: React.FC<PropsWithChildren> = ({
+export const ScreenSizeContextProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
   const useWindowWide = () => {
@@ -38,21 +38,23 @@ export const ScreenSizeProvider: React.FC<PropsWithChildren> = ({
   const sizeScreen = useWindowWide();
 
   return (
-    <ScreenSize.Provider
+    <ScreenSizeContext.Provider
       value={{
         sizeScreen,
       }}
     >
       {children}
-    </ScreenSize.Provider>
+    </ScreenSizeContext.Provider>
   );
 };
 
-export function useScreenSize() {
-  const context = useContext(ScreenSize);
+export function useScreenSizeContext() {
+  const context = useContext(ScreenSizeContext);
 
   if (!context) {
-    throw new Error("useStyle must be used within an ScreenSizeProvider");
+    throw new Error(
+      "useStyle must be used within an ScreenSizeContextProvider"
+    );
   }
 
   return context;

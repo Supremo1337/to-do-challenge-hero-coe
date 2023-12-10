@@ -6,7 +6,8 @@ import PersistentDrawerLeft from "@/components/PersistentDrawerLeft";
 import styled from "styled-components";
 import Main from "@/components/Main";
 import ModalCreateCard from "@/components/ModalCreateCard";
-import { useScreenSize } from "@/components/contexts/screenSizeContext";
+import { useScreenSizeContext } from "@/components/contexts/screenSizeContext";
+import { useTasksContext } from "@/components/contexts/tasksContext";
 
 export const Wrapper = styled.div`
   width: 100vw;
@@ -20,7 +21,7 @@ export const Wrapper = styled.div`
 `;
 
 export default function Home() {
-  const { sizeScreen } = useScreenSize();
+  const { sizeScreen } = useScreenSizeContext();
 
   return (
     <>

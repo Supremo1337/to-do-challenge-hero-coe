@@ -6,12 +6,12 @@ import ListItem from "@mui/material/ListItem";
 import * as S from "./styles";
 import { theme } from "@/styles/themes";
 import TaskBan from "../Taskban";
-import { useOpenMaterial } from "../contexts/openMaterialContext";
+import { useOpenMaterialContext } from "../contexts/openMaterialContext";
 
 const drawerSize = "100%";
 
 export default function PersistentDrawerLeft() {
-  const { openDrawer, setOpenDrawer } = useOpenMaterial();
+  const { openDrawer, setOpenDrawer } = useOpenMaterialContext();
 
   const handleDrawerClose = () => {
     setOpenDrawer(false);

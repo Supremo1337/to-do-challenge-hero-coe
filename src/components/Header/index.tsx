@@ -1,13 +1,13 @@
 import { FadeInContainer } from "../PersistentDrawerLeft/styles";
-import { useOpenMaterial } from "../contexts/openMaterialContext";
-import { useScreenSize } from "../contexts/screenSizeContext";
+import { useOpenMaterialContext } from "../contexts/openMaterialContext";
+import { useScreenSizeContext } from "../contexts/screenSizeContext";
 import { Content, CreateNewCardButton } from "./styles";
 import MenuIcon from "@mui/icons-material/Menu";
 
 export default function Header() {
-  const { sizeScreen } = useScreenSize();
+  const { sizeScreen } = useScreenSizeContext();
 
-  const { setOpenDrawer, setOpenModalCreateCard } = useOpenMaterial();
+  const { setOpenDrawer, setOpenModalCreateCard } = useOpenMaterialContext();
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
   };

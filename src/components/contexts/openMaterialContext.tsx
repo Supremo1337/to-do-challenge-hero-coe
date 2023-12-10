@@ -5,23 +5,23 @@ import React, {
   useContext,
 } from "react";
 
-interface OpenMaterialData {
+interface OpenMaterialContextData {
   openDrawer: boolean;
   setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
   openModalCreateCard: boolean;
   setOpenModalCreateCard: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const OpenMaterial = createContext({} as OpenMaterialData);
+const OpenMaterialContext = createContext({} as OpenMaterialContextData);
 
-export const OpenMaterialProvider: React.FC<PropsWithChildren> = ({
+export const OpenMaterialContextProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openModalCreateCard, setOpenModalCreateCard] = useState(false);
 
   return (
-    <OpenMaterial.Provider
+    <OpenMaterialContext.Provider
       value={{
         openDrawer,
         setOpenDrawer,
@@ -30,15 +30,17 @@ export const OpenMaterialProvider: React.FC<PropsWithChildren> = ({
       }}
     >
       {children}
-    </OpenMaterial.Provider>
+    </OpenMaterialContext.Provider>
   );
 };
 
-export function useOpenMaterial() {
-  const context = useContext(OpenMaterial);
+export function useOpenMaterialContext() {
+  const context = useContext(OpenMaterialContext);
 
   if (!context) {
-    throw new Error("useStyle must be used within an OpenMaterialProvider");
+    throw new Error(
+      "useStyle must be used within an OpenMaterialContextProvider"
+    );
   }
 
   return context;

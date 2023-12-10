@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-import { useOpenMaterial } from "../contexts/openMaterialContext";
+import { useOpenMaterialContext } from "../contexts/openMaterialContext";
 import * as S from "./styles";
 import * as GS from "@/styles/globalStyles";
 import { PriorityIndicatator } from "../CardTask/styles";
@@ -11,7 +11,7 @@ import { priorityButtons } from "./priorityButtos";
 import InputComponent from "../InputComponent";
 import { format } from "date-fns";
 import { useDateContext } from "../contexts/dateContext";
-import { useScreenSize } from "../contexts/screenSizeContext";
+import { useScreenSizeContext } from "../contexts/screenSizeContext";
 
 interface ModalCreateCardProps {
   addCard: (newCard: {
@@ -24,8 +24,9 @@ interface ModalCreateCardProps {
 }
 
 export default function ModalCreateCard({ addCard }: ModalCreateCardProps) {
-  const { sizeScreen } = useScreenSize();
-  const { setOpenModalCreateCard, openModalCreateCard } = useOpenMaterial();
+  const { sizeScreen } = useScreenSizeContext();
+  const { setOpenModalCreateCard, openModalCreateCard } =
+    useOpenMaterialContext();
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [priority, setPriority] = useState<"HIGH" | "MEDIUM" | "LOW">("HIGH");
