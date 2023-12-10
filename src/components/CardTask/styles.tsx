@@ -54,7 +54,6 @@ export const CardTitle = styled.h2<TaskCategoryTitleProps>`
   font: ${theme.fonts.libre_Franklin.title_3};
   white-space: nowrap;
   text-overflow: ellipsis;
-  /* width: 19ch; */
 `;
 
 export const CardDescription = styled(CardTitle)`
