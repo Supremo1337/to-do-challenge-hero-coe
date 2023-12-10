@@ -38,7 +38,6 @@ export default function Section({
   );
 
   const addItemToSection = (id: number, buttonName?: string) => {
-    console.log("close");
     setTasks((prev) => {
       const mTasks = prev.map((card) => {
         if (card.id === id) {
@@ -82,7 +81,7 @@ export default function Section({
   }
 
   return (
-    <S.TaskList ref={dropRef}>
+    <S.TaskList ref={dropRef} $isOver={isOver}>
       <S.TaskCategoryTitle>
         {text} <span>({cardsToMap.length})</span>
       </S.TaskCategoryTitle>

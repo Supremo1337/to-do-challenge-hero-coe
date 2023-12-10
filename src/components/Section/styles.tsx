@@ -1,8 +1,12 @@
 import { FlexBox } from "@/styles/globalStyles";
 import { theme } from "@/styles/themes";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const TaskList = styled(FlexBox)`
+interface TaskListProps {
+  $isOver: boolean;
+}
+
+export const TaskList = styled(FlexBox)<TaskListProps>`
   min-height: 670px;
   height: max-content;
   flex: 0 0 auto;
@@ -16,6 +20,12 @@ export const TaskList = styled(FlexBox)`
   @media (min-width: 1024px) {
     min-height: 751px;
   }
+  ${(props) =>
+    props.$isOver &&
+    css`
+      background: ${theme.colors.gray.gray_300};
+      cursor: grabbing;
+    `}
 `;
 
 export const TaskCategoryTitle = styled.h3`
