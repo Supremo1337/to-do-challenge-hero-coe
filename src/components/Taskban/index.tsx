@@ -15,7 +15,7 @@ export default function TaskBan({ $isTransparent }: TaskBanProps) {
   };
   return (
     <S.Content $isTransparent={$isTransparent}>
-      <S.Title>TaskBan</S.Title>
+      <S.Title>TASKBAN</S.Title>
       <S.GroupIcons>
         {buttons.map((button, index) => {
           return (

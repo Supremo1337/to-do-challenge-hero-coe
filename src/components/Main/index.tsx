@@ -27,8 +27,6 @@ export default function Main() {
     setDoneList(filterDone);
   }, [tasks]);
 
-  console.log(tasks);
-
   const statuses: TaskStatus[] = ["todo", "toDoing", "qA", "done"];
 
   return (
