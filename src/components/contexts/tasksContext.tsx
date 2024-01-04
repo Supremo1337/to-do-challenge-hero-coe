@@ -5,6 +5,12 @@ import React, {
   useState,
   useContext,
 } from "react";
+import {
+  todoListExamples,
+  toDoingListExamples,
+  qAListExamples,
+  doneListExamples,
+} from "../Main/exampleCards";
 
 interface TasksContextData {
   tasks: TasksProps[];
@@ -16,7 +22,12 @@ const TasksContext = createContext({} as TasksContextData);
 export const TasksContextProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
-  const [tasks, setTasks] = useState<TasksProps[]>([]);
+  const [tasks, setTasks] = useState<TasksProps[]>([
+    ...todoListExamples,
+    ...toDoingListExamples,
+    ...qAListExamples,
+    ...doneListExamples,
+  ]);
 
   return (
     <TasksContext.Provider

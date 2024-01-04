@@ -40,6 +40,7 @@ export const TaskViewSelector = styled.div`
 export const GroupIcons = styled(GS.FlexBox)`
   margin-top: 87px;
   gap: 50px;
+  cursor: pointer;
 `;
 
 export const IconTask = styled.div<IconTaskProps>`

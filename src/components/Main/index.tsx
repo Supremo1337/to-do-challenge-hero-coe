@@ -4,6 +4,8 @@ import * as S from "./styles";
 import { useTasksContext } from "../contexts/tasksContext";
 import { TasksProps } from "@/interfaces/interface";
 import Section from "../Section";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 type TaskStatus = "todo" | "toDoing" | "qA" | "done";
 
@@ -25,20 +27,24 @@ export default function Main() {
     setDoneList(filterDone);
   }, [tasks]);
 
+  console.log(tasks);
+
   const statuses: TaskStatus[] = ["todo", "toDoing", "qA", "done"];
 
   return (
     <S.Content>
-      {statuses.map((status) => (
-        <Section
-          key={status}
-          status={status}
-          todoList={todoList}
-          toDoingList={toDoingList}
-          qAList={qAList}
-          doneList={doneList}
-        />
-      ))}
+      <DndProvider backend={HTML5Backend}>
+        {statuses.map((status) => (
+          <Section
+            key={status}
+            status={status}
+            todoList={todoList}
+            toDoingList={toDoingList}
+            qAList={qAList}
+            doneList={doneList}
+          />
+        ))}
+      </DndProvider>
       <ModalCreateCard />
     </S.Content>
   );

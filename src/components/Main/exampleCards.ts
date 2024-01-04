@@ -46,6 +46,7 @@ export const qAListExamples = [
     title: "Atualizar Bibliotecas",
     description:
       "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos",
+    status: "qA",
     date: "2023-12-25",
     priority: "LOW",
   },
@@ -56,6 +57,7 @@ export const doneListExamples = [
     id: 6,
     title: "Final Project : App development",
     description: "Business Web Development",
+    status: "done",
     date: "2023-12-25",
     priority: "LOW",
   },

@@ -5,6 +5,8 @@ import PersistentDrawerLeft from "@/components/PersistentDrawerLeft";
 import styled from "styled-components";
 import Main from "@/components/Main";
 import { useScreenSizeContext } from "@/components/contexts/screenSizeContext";
+import { TasksContextProvider } from "@/components/contexts/tasksContext";
+import { DateContextProvider } from "@/components/contexts/dateContext";
 
 export const Wrapper = styled.div`
   width: 100vw;
@@ -35,7 +37,11 @@ export default function Home() {
       )}
       <Wrapper>
         <Header />
-        <Main />
+        <TasksContextProvider>
+          <DateContextProvider>
+            <Main />
+          </DateContextProvider>
+        </TasksContextProvider>
       </Wrapper>
     </>
   );
