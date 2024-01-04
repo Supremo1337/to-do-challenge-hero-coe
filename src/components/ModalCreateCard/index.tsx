@@ -16,7 +16,6 @@ export default function ModalCreateCard() {
     useOpenMaterialContext();
   const { formattedTodayDateToMaterialFormat } = useDateContext();
   const { setTasks } = useTasksContext();
-
   const [task, setTask] = useState<TasksProps>({
     id: Date.now(),
     title: "",
@@ -26,6 +25,8 @@ export default function ModalCreateCard() {
     date: formattedTodayDateToMaterialFormat,
   });
   const [placeholder, setPlaceholder] = useState(false);
+  const [selectedPriorityIndicatorIndex, setSelectedPriorityIndicatorIndex] =
+    useState(0);
 
   const handleCloseModalCreateCard = () => setOpenModalCreateCard(false);
 
@@ -69,6 +70,10 @@ export default function ModalCreateCard() {
   const handleTextFieldDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlaceholder(Boolean(e.target.value));
     setTask((prevTask) => ({ ...prevTask, date: e.target.value }));
+  };
+
+  const handleButtonClick = (index: number) => {
+    setSelectedPriorityIndicatorIndex(index);
   };
 
   return (
@@ -116,17 +121,19 @@ export default function ModalCreateCard() {
                 <S.PriorityBox>
                   <S.PriorityLabel>Prioryty</S.PriorityLabel>
                   <S.GroupPriorytisButtonsAndCancelAndSubmitButton>
-                    {priorityButtons.map((button) => {
+                    {priorityButtons.map((button, index) => {
                       return (
                         <PriorityIndicatator
                           key={button.priority}
                           $priority={button.priority}
-                          onClick={() =>
+                          $isSelected={selectedPriorityIndicatorIndex === index}
+                          onClick={() => {
+                            handleButtonClick(index);
                             setTask((prevTask) => ({
                               ...prevTask,
                               priority: button.priority,
-                            }))
-                          }
+                            }));
+                          }}
                         >
                           {button.priority}
                         </PriorityIndicatator>
@@ -168,17 +175,21 @@ export default function ModalCreateCard() {
                   <S.PriorityBox>
                     <S.PriorityLabel>Prioryty</S.PriorityLabel>
                     <S.GroupPriorytisButtonsAndCancelAndSubmitButton>
-                      {priorityButtons.map((button) => {
+                      {priorityButtons.map((button, index) => {
                         return (
                           <PriorityIndicatator
                             key={button.priority}
                             $priority={button.priority}
-                            onClick={() =>
+                            $isSelected={
+                              selectedPriorityIndicatorIndex === index
+                            }
+                            onClick={() => {
+                              handleButtonClick(index);
                               setTask((prevTask) => ({
                                 ...prevTask,
                                 priority: button.priority,
-                              }))
-                            }
+                              }));
+                            }}
                           >
                             {button.priority}
                           </PriorityIndicatator>

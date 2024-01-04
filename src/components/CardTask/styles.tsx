@@ -14,6 +14,7 @@ interface ContentProps {
 
 interface PriorityIndicatatorProps {
   $priority: "HIGH" | "MEDIUM" | "LOW";
+  $isSelected?: boolean;
 }
 
 interface TaskCategoryTitleProps {
@@ -32,6 +33,7 @@ export const Content = styled(FlexBox)<ContentProps>`
 
   padding: 20px;
   cursor: grab;
+  background: ${theme.colors.white.white_100};
 
   ${(props) =>
     props.$isDragging &&
@@ -105,7 +107,7 @@ export const TimeTitle = styled.label<TimeProps>`
 
 export const PriorityIndicatator = styled.div<PriorityIndicatatorProps>`
   width: max-content;
-  height: 24px;
+  height: ${(props) => (props.$isSelected ? "30px" : "24px")};
   border-radius: 100px;
 
   background: ${(props) =>
