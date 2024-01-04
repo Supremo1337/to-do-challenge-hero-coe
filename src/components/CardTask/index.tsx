@@ -50,7 +50,9 @@ export default function CardTask({
         $isDragging={isDragging}
       >
         <S.CardTitle title={card.title}>{card.title}</S.CardTitle>
-        <S.CardDescription>{card.description}</S.CardDescription>
+        <S.CardDescription title={card.description}>
+          {card.description}
+        </S.CardDescription>
         <S.BottomCard>
           <S.TaskTime>
             {isDoneList ? (

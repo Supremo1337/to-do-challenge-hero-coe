@@ -56,17 +56,19 @@ export const CardTitle = styled.h2<TaskCategoryTitleProps>`
   font: ${theme.fonts.libre_Franklin.title_3};
   white-space: nowrap;
   text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 export const CardDescription = styled(CardTitle)`
   margin: 15px 0 21px 0;
 
   font: ${theme.fonts.libre_Franklin.title_7};
+  white-space: normal;
+  text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box !important;
   -webkit-line-clamp: 2;
-  -webkit-box-orient: horizontal;
-  white-space: normal;
+  -webkit-box-orient: vertical;
 `;
 
 export const BottomCard = styled.div`
